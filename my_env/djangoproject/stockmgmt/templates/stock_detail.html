@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} {{title}} {% endblock %}
+{% block body_block %}
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags}}" {% endif %}> {{message}}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h1>{{title}}</h1>
+
+  <a href="{% url 'export_items' pk=queryset.id %}"><div class="btn btn-danger">EXPORT THIS ITEM</div></a>
+  <a href="{% url 'import_items' pk=queryset.id %}"><div class="btn btn-primary">IMPORT THIS ITEM</div></a>
+  <br><br>
+  <div class="display_table">
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>CATEGORY</th>
+          <th>ITEM Name</th>
+          <th>QUANTITY IN STORE</th>
+          <th>LAST UPDATED</th>
+          <th>REORDER LEVEL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{queryset.category}}</td>
+          <td>{{queryset.item_name}}</td>
+          <td>{{queryset.quantity}}</td>
+          <td>{{queryset.last_updated}}</td>
+          <td>{{queryset.reorder_level}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+{% endblock %}
